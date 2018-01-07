@@ -9,7 +9,7 @@
 import UIKit
 
 class MainVC: UITableViewController {
-    let itemArray = ["Find Mike", "Buy Eggos", "Destory Demogorgon"]
+    var itemArray = ["Find Mike", "Buy Eggos", "Destory Demogorgon"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +39,38 @@ class MainVC: UITableViewController {
             tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
         }
     }
+    
+    
+    
+    //MARK - Add New Items
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        var textField = UITextField()
+        
+        //创建alert
+        let alert = UIAlertController(title: "Add New ToDo List", message: "", preferredStyle: .alert)
+        
+        //创建Action
+        let action  = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //当用户点击Add Item按钮后打印出下面代码结果
+            self.itemArray.append(textField.text!)
+            
+            //重新加载 tableView 数据
+            self.tableView.reloadData()
+        }
+        
+        //在alert窗口里创建输入框
+        alert.addTextField { (alertTextField) in
+            
+            alertTextField.placeholder = "Create new item"
+            
+            textField = alertTextField
+        }
+        alert.addAction(action)
+        
+        //把alert显示到界面
+        present(alert, animated: true, completion: nil)
+    }
+    
     
     
 
